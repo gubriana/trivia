@@ -83,7 +83,14 @@ export default {
   },
   methods: {
     ingresar() {
-      console.log('Ingresar')
+      console.log('Ingresar');
+      // ceración de objeto porque solo puedo pasar
+      let datos = {
+        email: this.ingresarEmail,
+        password: this. ingresarPassword
+      }
+      // pasar la acción despachar!
+      this.$store.dispatch('ingresar',datos)
     },    
     registrar() {
       // verificar que ambas contraseñas sean iguales
