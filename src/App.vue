@@ -1,6 +1,8 @@
 <template>
   <div class="container">
+<!--     <router-view /> -->
     <Login />
+
   </div>
 </template>
 
@@ -20,6 +22,6 @@ h1, h2, h3, h4, h5, p, i {
   color: gray
 }
 html {
-  background-color:#212121;
-}
+  background-color: #eeeeee;
+  }
 </style>
