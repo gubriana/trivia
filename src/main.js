@@ -7,7 +7,7 @@ import './firebase.js'
 
 import VueFirestore from 'vue-firestore';
 import App from './App.vue'
-/* import router from '@/router'; */
+import router from './router';
 
 Vue.config.productionTip = false
 
@@ -18,7 +18,7 @@ const store = new Vuex.Store({
   state:{
     usuario: null,
     // mensaje del v-if del componente
-    error: null
+    error: null,
   },
   mutations: {
     // mutación para cambiar el usuario
@@ -38,23 +38,36 @@ const store = new Vuex.Store({
       // si el registro funciona
       .then(function(response){
         console.log(response);
+        //registro exisitoso, agregar nombre
+        firebase.auth().currentUser.updateProfile({
+          displayName: datos.nombre
+        })
         context.commit('setError', null);
         context.commit('setUsuario', datos.email);
         // es para ir al inicio
-/*         router.push('/'); */
+        router.push('/');
       })
       // si hay error en el registro
       .catch(function(error){
+        console.log(error);
         context.commit('setError', error.message);
         context.commit('setUsuario', error.null);
       })
 
+    },
+    salir(context){
+      firebase.auth().signOut()
+      .then(()=> {
+        context.commit('setError', null);
+        context.commit('setUsuario', null);
+        router.push('/login');
+      })
     }
   }
 });
 
 new Vue({
   render: h => h(App),
-/*   router, */
+  router,
   store
 }).$mount('#app')

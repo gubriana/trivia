@@ -2,12 +2,17 @@
   <div>
     <div class="col 12s">
       <div class="card-panel center red" id='msjerror' v-if="error" >{{error}}</div>
-    </div>
+      </div>
     <div class="row">
       <form class="col s5 card-panel" @submit.prevent="registrar">
         <h4 class="center">Registrar cuenta</h4>
         <div class="divider"></div>
         <div class="row">
+          <div class="input-field col s12">
+            <i class="material-icons prefix tiny">account_circle</i>
+            <input type="text" class="validate" required v-model="registrarNombre">
+            <label for="icon_email">Nombre</label>
+          </div>
           <div class="input-field col s12">
             <i class="material-icons prefix tiny">email</i>
             <input type="email" class="validate" required v-model="registrarEmail">
@@ -64,6 +69,7 @@ export default {
     return {
       ingresarEmail: '',
       ingresarPassword: '',
+      registrarNombre: '',
       registrarEmail: '',
       registrarPassword:'',
       registrarPasswordConfirmar:''
@@ -90,7 +96,11 @@ export default {
         return;
       }
       // ahora podemos registrar al usuario, llamando a la acción correspondiente
-      const datos = {email: this.registrarEmail, password: this.registrarPassword};
+      const datos = {
+        email: this.registrarEmail, 
+        password: this.registrarPassword,
+        nombre: this.registrarNombre
+        };
       this.$store.dispatch('registrar', datos)
     }
   }/* ,
