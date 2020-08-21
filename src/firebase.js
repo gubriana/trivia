@@ -1,17 +1,13 @@
 import firebase from 'firebase/app';
-import 'firebase/firestore'
-// referencing configuration values from .env.development
+import 'firebase/firestore';    // added this line
 var firebaseConfig = {
-    apiKey: 'AIzaSyAgkairUVbObnzxNqOlHmy42ukGyUjqhq8',
+    apiKey: process.env.VUE_APP_APIKEY,
     authDomain: process.env.VUE_APP_AUTHDOMAIN,
     databaseURL: process.env.VUE_APP_DATABASEURL,
-    projectId: 'gubriana-vue',
+    projectId: process.env.VUE_APP_PROJECTID,
     storageBucket: process.env.VUE_APP_STORAGEBUCKET,
     messagingSenderId: process.env.VUE_APP_MESSAGINGSENDERID,
     appId: process.env.VUE_APP_APPID,
 };
-
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-export const db = firebaseApp.firestore();
-// Mucho muy demasiado importante
-//export const auth = firebaseApp.auth();
+const firebaseApp = firebase.initializeApp(firebaseConfig);    // capture initialized app in a variable
+export const db = firebaseApp.firestore();  

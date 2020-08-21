@@ -2,7 +2,7 @@
   <div>
     <div class="col 12s">
       <div class="card-panel center red" id='msjerror' v-if="error" >{{error}}</div>
-      </div>
+    </div>
     <div class="row">
       <form class="col s5 card-panel" @submit.prevent="registrar">
         <h4 class="center">Registrar cuenta</h4>
@@ -126,6 +126,7 @@ export default {
 }
 .card-panel {
   padding: 0 2rem 0 2rem;
+  margin-top: 4rem;
 } 
 #msjerror {
   font-size: 1.3rem;

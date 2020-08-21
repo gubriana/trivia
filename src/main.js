@@ -35,7 +35,8 @@ const store = new Vuex.Store({
   actions: {
     registrar(context, datos){
       // datos tiene 3: email password y nomre. Para autentificar usa email y password
-      firebase.auth().createUserWithEmailAndPassword(datos.email, datos.password) // acá guarda
+      firebase.auth().createUserWithEmailAndPassword(datos.email, datos.password)
+      // acá guarda
       // si el registro funciona
       .then(function(response){
         console.log(response);
