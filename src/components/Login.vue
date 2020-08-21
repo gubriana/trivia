@@ -29,7 +29,7 @@
             <label for="icon_password">Repetir contraseña</label>
           </div>
           <div class="col s12 center">
-            <button class="btn waves-effect waves-light lime right btn-large" type="submit" name="action">Registrar
+            <button class="btn waves-effect waves-light amber right btn-large" type="submit" name="action">Registrar
               <i class="material-icons right white-text ">send</i>
             </button>
           </div>
@@ -50,7 +50,7 @@
             <label for="icon_vpn_key">Contraseña</label>
           </div>
           <div class="col s12 center">
-            <button class="btn waves-effect waves-light lime right btn-large" type="submit" name="action">Ingresar
+            <button class="btn waves-effect waves-light amber right btn-large" type="submit" name="action">Ingresar
               <i class="material-icons right white-text">send</i>
             </button>
           </div>
