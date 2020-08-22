@@ -1,12 +1,12 @@
 <template>
     <div class="row">
-        <div class="card-panel m12 center">
-            <h4 class="header center grey-text">¿QUIERES JUGAR? <span v-if="usuario">{{ usuario.nombre }}</span></h4>
+        <div class="card-panel m12 center blue">
+            <h4 class="header center white-text">¿Te animas a jugar <span v-if="usuario">{{ usuario.nombre }}?</span></h4>
             <br>
-              <button class="btn-floating btn-large waves-effect waves-light red" type="submit"><i class="large material-icons">play_arrow</i></button>
+              <button class="btn-floating btn-large waves-effect waves-light amber" type="button"><router-link v-bind:to="{ path: '/game' }"><i class="large material-icons">play_arrow</i></router-link></button>
         </div>
         <nav>
-            <div class="nav-wrapper blue">
+            <div class="nav-wrapper grey">
                 <form>
                     <div class="input-field">
                         <input id="search" type="search" required>
@@ -52,8 +52,7 @@ export default {
         usuario() {
             return this.$store.state.usuario;
         }
-    }
-    
+    }    
 }
 </script>
 <style>

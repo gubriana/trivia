@@ -4,7 +4,7 @@
 <!-- agregar -->
 
         <div class="card-panel m12 center red">
-            <h1 class="header center white-text">Agregar nueva pregunta</h1>
+            <h1 class="header center white-text">Agregar nueva pregunta <span v-if="usuario">{{ usuario.nombre }}</span></h1>
             <br>
             <p class="center white-text">Elige la respuesta por cada pregunta y envía el cuestionario una vez que hayas respondido. Suerte</p>
         </div>
@@ -61,6 +61,11 @@
 import { db } from '@/firebase.js'
 export default {
     name: 'Question',
+    computed: {
+        usuario() {
+            return this.$store.state.usuario;
+        }
+    },
     data() {
         return {
             ingresoPregunta: '',
@@ -71,13 +76,30 @@ export default {
         }
     },
     methods: {               
-        agregarPregunta() {            
+        agregarPregunta() {  
+            let respuestas = [
+                {
+                    answer: this.ingresoRespCorrecta,
+                    isCorrect: true
+                },
+                {
+                    answer: this.ingresoRespIncorrecta1,
+                    isCorrect: false
+                },{
+                    answer: this.ingresoRespIncorrecta2,
+                    isCorrect: false
+                },
+                {
+                    answer: this.ingresoRespIncorrecta3,
+                    isCorrect: false
+                }
+            ]
+            respuestas = respuestas.sort(() => 0.5 - Math.random());
+            console.log(respuestas);
+                      
             db.collection('questions').add({
-                pregunta: this.ingresoPregunta,
-                respuesta: this.ingresoRespCorrecta,
-                respuestaIncorrecta1: this.ingresoRespIncorrecta1,
-                respuestaIncorrecta2: this.ingresoRespIncorrecta2,
-                respuestaIncorrecta3: this.ingresoRespIncorrecta3
+                question: this.ingresoPregunta,
+                answers: respuestas
             })
             // Redireccionar
             .then(() => {
@@ -104,7 +126,4 @@ export default {
 </script>
 
 <style>
-.distancia-botones {
-    margin:  1rem 0 1rem 1rem;
-}
 </style>

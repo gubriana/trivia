@@ -5,91 +5,60 @@
             <br>
             <p class="center white-text">Elige la respuesta por cada pregunta y envía el cuestionario una vez que hayas respondido. Suerte</p>
         </div>
-        <div class="row">
-            <div class="col m12 card-panel">
-                <h5>1. Aca va la pregunta</h5>
-                  <form action="#">
-                    <p>
-                    <label>
-                        <input name="group1" type="radio" checked />
-                        <span>Red</span>
-                    </label>
-                    </p>
-                    <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span>Yellow</span>
-                    </label>
-                    </p>
-                    <p>
-                    <label>
-                        <input class="with-gap" name="group1" type="radio"  />
-                        <span>Green</span>
-                    </label>
-                    </p>
-                </form>
-            </div>
-            <div class="col m12 card-panel">
-                <h5>2. Aca va la pregunta</h5>
-                  <form action="#">
-                    <p>
-                    <label>
-                        <input name="group1" type="radio" checked />
-                        <span>Red</span>
-                    </label>
-                    </p>
-                    <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span>Yellow</span>
-                    </label>
-                    </p>
-                    <p>
-                    <label>
-                        <input class="with-gap" name="group1" type="radio"  />
-                        <span>Green</span>
-                    </label>
-                    </p>
-                </form>
-            </div>
-            <div class="col m12 card-panel">
-                <h5>3. Aca va la pregunta</h5>
-                  <form action="#">
-                    <p>
-                    <label>
-                        <input name="group1" type="radio" checked />
-                        <span>Red</span>
-                    </label>
-                    </p>
-                    <p>
-                    <label>
-                        <input name="group1" type="radio" />
-                        <span>Yellow</span>
-                    </label>
-                    </p>
-                    <p>
-                    <label>
-                        <input class="with-gap" name="group1" type="radio"  />
-                        <span>Green</span>
-                    </label>
-                    </p>
-                </form>
+        <form class="row">
+            <div class="col m12 card-panel"  v-for="question in questions.slice(0,3)" :key="question.id">
+                <h5>{{question.question}}</h5>
+                <p>
+                <label>
+                    <input name="group1" type="radio" />
+                    <span>{{question.answers[0].answer}}</span>
+                </label>
+                </p>
+                <p>
+                <label>
+                    <input name="group1" type="radio" />
+                    <span>{{question.answers[1].answer}}</span>
+                </label>
+                </p>
+                <p>
+                <label>
+                    <input name="group1" type="radio"  />
+                    <span>{{question.answers[2].answer}}</span>
+                </label>
+                </p>
+                <p>
+                <label>
+                    <input name="group1" type="radio" />
+                    <span>{{question.answers[3].answer}}</span>
+                </label>
+                </p>
             </div>
             <div class="col m12 right-align">
                 <button type="button" class="btn-floating btn-large waves-effect waves-light grey"><i class="material-icons">close</i></button>
-                <button type="button"  id="enviar-juego" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">send</i></button>
-            </div>
-        </div>
+                <button type="button" class="btn-floating btn-large waves-effect waves-light amber distancia-botones"><i class="material-icons">send</i></button>
+            </div>        
+        </form>
         <!-- FIN Game -->
     </div>
 </template>
 
 <script>
+import { db } from '@/firebase.js'
+
 export default {
-      name: 'Game',
+    name: 'Game',
+    computed: {
+        usuario() {
+            return this.$store.state.usuario;
+        }
+    },
+    firestore() {           // adding this key/function
+        return {
+            questions: db.collection('questions')
+        }
+    }
 }
 </script>
 
-<style>
-
+<style scoped>
 </style>
