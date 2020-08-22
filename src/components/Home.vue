@@ -23,6 +23,7 @@
                     <th>Nombre</th>
                     <th>Puntaje</th>
                     <th>Porcentaje</th>
+                    <th>Fecha</th>
                 </tr>
             </thead>
             <tbody>
@@ -30,6 +31,7 @@
                     <td>{{game.user}}</td>
                     <td>{{game.score}}</td>
                     <td>{{game.percentage}}%</td>
+                    <td>{{game.date}}</td>
                 </tr>
             </tbody>
         </table>
