@@ -27,7 +27,7 @@
             </thead>
             <tbody>
                 <tr v-for="game in games" :key="game.id">
-                    <td>asdagd</td>
+                    <td>{{game.user}}</td>
                     <td>{{game.score}}</td>
                     <td>{{game.percentage}}%</td>
                 </tr>
@@ -47,7 +47,7 @@ export default {
     },
     firestore() {
         return {
-            games: db.collection('games')
+            games: db.collection('games').orderBy('date', 'desc')
         }
     }    
 }

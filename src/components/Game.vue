@@ -6,7 +6,7 @@
             <p class="center white-text">Elige la respuesta por cada pregunta y envía el cuestionario una vez que hayas respondido. Suerte</p>
         </div>
         <form class="row" @submit.prevent="enviarJuego">
-            <div class="col m12 card-panel"  v-for="(question,i) in questions.slice(0,3)" :key="question.id">
+            <div class="col m12 card-panel"  v-for="(question,i) in randomQuestions.slice(0,3)" :key="question.id">
                 <h5>{{question.question}}</h5>
                 <p>
                 <label>
@@ -34,7 +34,7 @@
                 </p>
             </div>
             <div class="col m12 right-align">
-                <button type="button" class="btn-floating btn-large waves-effect waves-light grey"><i class="material-icons">close</i></button>
+                <button type="button" class="btn-floating btn-large waves-effect waves-light grey" @click="cancelarJuego"><i class="material-icons">close</i></button>
                 <button type="submit" class="btn-floating btn-large waves-effect waves-light amber distancia-botones"><i class="material-icons">send</i></button>
             </div>    
         </form>
@@ -45,6 +45,12 @@
 <script>
 import { db } from '@/firebase.js'
 
+const getDate = () => {
+  const trailing = (d) => ('0' + d).slice(-2);
+  const now = new Date();
+  return `${now.getFullYear()}-${trailing(now.getMonth() + 1)}-${trailing(now.getDate())} ${trailing(now.getHours())}:${trailing(now.getMinutes())}:${trailing(now.getSeconds())}`;
+}
+
 export default {
     name: 'Game',
     data() {
@@ -52,18 +58,18 @@ export default {
             form: {
                 respuestas:[]
             },
-            porcentaje:'',
+            porcentaje:''
         }
     },
     computed: {
         usuario() {
             return this.$store.state.usuario;
-        }/* ,
-        preguntasDesordenadas() {
+        },
+        randomQuestions() {
             let preguntas = [...this.questions]
-            preguntas.sort(() => 0.5 - Math.randon());
+            preguntas.sort(() => 0.5 - Math.random());
             return preguntas
-        } */
+        }
     },
     methods: {
         enviarJuego() {
@@ -73,6 +79,7 @@ export default {
             let contador = 0
             let puntaje = ''
             let porcentaje = ''
+            let usuario = this.$store.state.usuario.nombre
             for (let i = 0; i < this.form.respuestas.length; i++) {
                 if (this.form.respuestas[i] === 'OK') {
                     contador = contador+1
@@ -99,8 +106,17 @@ export default {
 
             db.collection('games').add({
                 percentage: porcentaje,
-                score: puntaje
+                score: puntaje,
+                user: usuario,
+                date: getDate(),
             })
+            .then(() => {
+                alert('Tu puntaje es ' + puntaje)
+                this.$router.push('/')
+            })
+        },
+        cancelarJuego() {   
+            this.$router.push('/')
         }
     },
     firestore() {
