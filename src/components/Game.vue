@@ -10,25 +10,25 @@
                 <h5>{{question.question}}</h5>
                 <p>
                 <label>
-                    <input name="group1" type="radio" />
+                    <input :name="question.id" type="radio" :value="question.answers[0].isCorrect"/>
                     <span>{{question.answers[0].answer}}</span>
                 </label>
                 </p>
                 <p>
                 <label>
-                    <input name="group1" type="radio" />
+                    <input :name="question.id" type="radio" :value="question.answers[1].isCorrect" />
                     <span>{{question.answers[1].answer}}</span>
                 </label>
                 </p>
                 <p>
                 <label>
-                    <input name="group1" type="radio"  />
+                    <input :name="question.id" type="radio" :value="question.answers[2].isCorrect" />
                     <span>{{question.answers[2].answer}}</span>
                 </label>
                 </p>
                 <p>
                 <label>
-                    <input name="group1" type="radio" />
+                    <input :name="question.id" type="radio" :value="question.answers[3].isCorrect"/>
                     <span>{{question.answers[3].answer}}</span>
                 </label>
                 </p>
@@ -36,7 +36,7 @@
             <div class="col m12 right-align">
                 <button type="button" class="btn-floating btn-large waves-effect waves-light grey"><i class="material-icons">close</i></button>
                 <button type="button" class="btn-floating btn-large waves-effect waves-light amber distancia-botones"><i class="material-icons">send</i></button>
-            </div>        
+            </div>    
         </form>
         <!-- FIN Game -->
     </div>
@@ -50,6 +50,11 @@ export default {
     computed: {
         usuario() {
             return this.$store.state.usuario;
+        },
+        preguntasDesordenadas() {
+            let preguntas = [...this.questions]
+            preguntas.sort(() => 0.5 - Math.randon());
+            return preguntas
         }
     },
     firestore() {           // adding this key/function
