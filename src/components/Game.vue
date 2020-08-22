@@ -51,38 +51,56 @@ export default {
         return {
             form: {
                 respuestas:[]
-            }
+            },
+            porcentaje:'',
         }
     },
     computed: {
         usuario() {
             return this.$store.state.usuario;
-        },
+        }/* ,
         preguntasDesordenadas() {
             let preguntas = [...this.questions]
             preguntas.sort(() => 0.5 - Math.randon());
             return preguntas
-        }
+        } */
     },
     methods: {
         enviarJuego() {
+
             console.log(this.form.respuestas);
+
             let contador = 0
+            let puntaje = ''
+            let porcentaje = ''
             for (let i = 0; i < this.form.respuestas.length; i++) {
                 if (this.form.respuestas[i] === 'OK') {
                     contador = contador+1
                 }    
             }
-            console.log(contador);/* 
-            if (this.form.respuestas[0] === 'OK') {
-                contador = contador+1
-                }
-            else if (this.form.respuestas[1] === 'OK') {
-                contador = contador+1;
-                console.log(contador);      
-                }
-            else (this.form.respuestas[2] === 'OK')
-                contador = contador+1   */   
+            console.log(contador);
+            
+            if (contador == 0) {
+                puntaje = '0/3'
+            }
+            if (contador == 1) {
+                puntaje = '1/3'
+            }
+            if (contador == 2) {
+                puntaje = '2/3'
+            }
+            else if (contador == 3)
+                puntaje = '3/3'
+            console.log(puntaje);
+            
+            porcentaje = (contador/3)*100;
+            porcentaje = porcentaje.toFixed(1)
+            console.log(porcentaje);
+
+            db.collection('games').add({
+                percentage: porcentaje,
+                score: puntaje
+            })
         }
     },
     firestore() {

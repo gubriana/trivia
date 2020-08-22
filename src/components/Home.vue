@@ -26,31 +26,28 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Tami</td>
-                    <td>1/3</td>
-                    <td>33%</td>
-                </tr>
-                <tr>
-                    <td>Tomi</td>
-                    <td>2/3</td>
-                    <td>66%</td>
-                </tr>
-                <tr>
-                    <td>Timi</td>
-                    <td>3/3</td>
-                    <td>100%</td>
+                <tr v-for="game in games" :key="game.id">
+                    <td>asdagd</td>
+                    <td>{{game.score}}</td>
+                    <td>{{game.percentage}}%</td>
                 </tr>
             </tbody>
         </table>
     </div>
 </template>
 <script>
+import { db } from '@/firebase.js'
+
 export default {
     name: 'Home',
     computed: {
         usuario() {
             return this.$store.state.usuario;
+        }
+    },
+    firestore() {
+        return {
+            games: db.collection('games')
         }
     }    
 }
