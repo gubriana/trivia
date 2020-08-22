@@ -95,6 +95,7 @@ export default {
                 }
             ]
             respuestas = respuestas.sort(() => 0.5 - Math.random());
+
             console.log(respuestas);
                       
             db.collection('questions').add({
