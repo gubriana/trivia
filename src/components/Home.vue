@@ -49,7 +49,7 @@ export default {
     },
     firestore() {
         return {
-            games: db.collection('games').orderBy('date', 'desc')
+            games: db.collection('games').orderBy('score', 'desc')
         }
     }    
 }
